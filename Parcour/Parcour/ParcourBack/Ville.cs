@@ -8,6 +8,15 @@ namespace ParcourBack
 {
     public class Ville
     {
+        public Ville() { }
+
+        public Ville(String name, double posX, double posY)
+        {
+            this.name = name;
+            this.posX = posX;
+            this.posY = posY;
+        }
+
         private string name;
         public string Name
         {
@@ -26,13 +35,6 @@ namespace ParcourBack
         {
             get { return posy; }
             set { posy = value; }
-        }
-
-        public Ville(String name, double posX, double posY)
-        {
-            this.name = name;
-            this.posX = posX;
-            this.posY = posY;
         }
     }
 }

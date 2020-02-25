@@ -75,13 +75,11 @@ namespace ParcourBack
                 }
                 moy.SetValue(moy[1] / (listeCheminAleatoire.Count), 1);
             }
-            //Console.WriteLine($"Moy1: {moy[0]} \nMoy2: {moy[1]}");
 
             if (moy[1] > (moy[0] - 0.01) || moy[1] < (moy[0] + 0.01))
             {
                 stop++;
                 moy.SetValue(moy.GetValue(1), 0);
-                //moy.SetValue(0, 1);
             }
             else
             {
@@ -95,8 +93,7 @@ namespace ParcourBack
         {
 
             int index;
-            // On a 6 ville, on va donc créer une liste contenant 6 nombre tiré de manière alatoire entre 0 et 5
-            //List<int> aleatoireUnique = new List<int>() { 1, 2, 3, 4 };
+            // Ex: Si on a 6 ville, on va donc créer une liste contenant 4 nombre tiré de manière alatoire entre 1 et 4
             List<int> aleatoireUnique = new List<int>();
             for (int i = 1; i < listeVilles.Count - 1; i++) { aleatoireUnique.Add(i); }
             List<int> aleatoire = new List<int>();
@@ -110,14 +107,13 @@ namespace ParcourBack
             }
             // A partir de cette liste on extrait les 6 villes dans l'ordre donnée pour faire un chemin
             List<Ville> listeVilleAleatoire = new List<Ville>();
-            //listeVilleAleatoire.Add(new Ville("Nice", 7.2661, 43.7031));
+
             listeVilleAleatoire.Add(listeVilles[0]);
             for (j = 0; j < aleatoire.Count; j++)
             {
                 index = aleatoire[j];
                 listeVilleAleatoire.Add(listeVilles[index]);
             }
-            //listeVilleAleatoire.Add(new Ville("Marseille", 5.4, 43.3));
             listeVilleAleatoire.Add(listeVilles[listeVilles.Count - 1]);
 
             // Pour finir on transforme c'est liste de ville en un chemin avec un score à 0
@@ -147,16 +143,19 @@ namespace ParcourBack
                     index1 = 1;
                     index2 = 1;
                 }
+
                 // On s'assure qu'ils soient bien distinct
                 while (index1 == index2 && nombreChemins > 3)
                 {
                     index2 = iterable.Next(1, nombreChemins - 2);
                 }
+
                 // Puis on extrait nos deux chemin
                 Chemin chemin1 = new Chemin(listeCheminAleatoire[index1]);
                 Chemin chemin2 = new Chemin(listeCheminAleatoire[index2]);
+
                 // On définie le pivot aléatoirement et on construit 2 liste de ville en fonction
-                // Etant donné qu'on a 6 villes on prend un nombre entre 1 et 5 histoire d'avoir un pivot interessant
+                // Ex: Si on a 6 villes on prend un nombre entre 1 et 4
                 index1 = iterable.Next(1, listeVilles.Count - 2);
                 for (int i = 0; i < listeVilles.Count - 1; i++)
                 {
@@ -171,9 +170,11 @@ namespace ParcourBack
                         ville2.Add(chemin1.chemin[i]);
                     }
                 }
+
                 // En sortie, on contôle les double de ville et on les remplace par celles manquantes
                 List<Ville> ControleUnique1 = new List<Ville>();
                 List<Ville> ControleUnique2 = new List<Ville>();
+
                 // On commance par alimenter deux liste avec les valeurs de nos chemins.
                 // Si une ville a déja été ajouté, on la supprime du chemin
                 for (int i = 0; i < ville1.Count; i++)
@@ -200,6 +201,7 @@ namespace ParcourBack
                         ControleUnique2.Add(ville2[i]);
                     }
                 }
+
                 // A cette étape, on a supprimer les doublons, il reste à rajouter les listes manquantes
                 // Pour ce faire, on part de la liste initiale de toutes les villes, on supprime les éléments présents dans ville1&2
                 // afin de conserer uniquement les valeurs manquantes
@@ -213,6 +215,7 @@ namespace ParcourBack
                 {
                     ControleUnique2.RemoveAll(B => B.Name == ville2[i].Name);
                 }
+
                 // En sortie de la boucle, on a supprimé les doublons présents dans les chemins et on a deux listes de ville contenant celles manquantes
                 // A partir de la, ils nous reste à compléter les listes de villes avec les deux autres
                 for (int i = 0; i < ControleUnique1.Count; i++)
@@ -223,6 +226,7 @@ namespace ParcourBack
                 {
                     ville2.Add(ControleUnique2[i]);
                 }
+
                 // Maintenant que l'on a terminer d traiter nos villes, on les ajoute à la liste de chemin du Xover et on repart pour un tour de boucle
                 Chemin CheminXover1 = new Chemin(ville1, 0);
                 XOverListChemin.Add(CheminXover1);
@@ -245,11 +249,13 @@ namespace ParcourBack
                 // On tire 2 index random
                 int index1 = iterable.Next(1, listeVilles.Count - 2);
                 int index2 = iterable.Next(1, listeVilles.Count - 2);
+
                 // On s'assure qu'ils soient bien distinct
                 while (index1 == index2)
                 {
                     index2 = iterable.Next(1, listeVilles.Count - 2);
                 }
+
                 // On sauvegarde les valeurs avant de les attribuer
                 mutation1 = XOverListChemin[i].chemin[index1];
                 mutation2 = XOverListChemin[i].chemin[index2];
@@ -268,6 +274,7 @@ namespace ParcourBack
                     orderby chemin.Score ascending
                     select chemin;
                 XOverListChemin = Query.Take(XOverListChemin.Count).ToList();
+
                 int max = XOverListChemin.Count;
                 for (int j = 1; j < max; j++)
                 {

@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System;
-using GalaSoft.MvvmLight.Command;
 
 namespace ParcourFront
 {
@@ -21,8 +20,7 @@ namespace ParcourFront
         public Parcour p = new Parcour();
         public Chemin ch = new Chemin();
         public PositionVille pv = new PositionVille();
-        public List<PositionVille> pvList = new List<PositionVille>();
-
+        
         // On créer une nouvelle liste de ville, on y stockera les points saisie
         public List<Ville> listeVilles = new List<Ville>();
         public List<Chemin> listeCheminAleatoire = new List<Chemin>();
@@ -38,7 +36,6 @@ namespace ParcourFront
         public MainWindow()
         {
             InitializeComponent();
-            pvList = pv.initPositionsVilles();
             villes.ItemsSource = listeVillesAffichage;
             sortie.ItemsSource = sortieRun;
             resultats.ItemsSource = listeResultatAffichage;
@@ -50,21 +47,13 @@ namespace ParcourFront
             // On récupère les coordonnées (x,y) de la souris
             Point p = Mouse.GetPosition(Carte);
 
-            // Puis on affiche une inputBox pour demandé à l'utilisateur de saisir le nom de la ville 
+            // Puis on va chercher le nom de la ville dans la base de données en utilisant les coordonnées récupérées
+            // Si elle n'existe pas dans la base on affiche une inputBox pour demandé à l'utilisateur de saisir le nom de la ville 
             InputCityName getCityName = new InputCityName();
             string cityName = "";
-            /*if (getCityName.ShowDialog() == true && getCityName.Answer != "")
-            {
-                cityName = getCityName.Answer;
-            }*/
-
-            foreach (PositionVille x in pvList)
-            {
-                if (p.X < x.posXMax && p.X > x.posXMin && p.Y < x.posYMax && p.Y > x.posYMin)
-                {
-                    cityName = x.Name;
-                }
-            }
+            DataBase db = new DataBase();
+            List<PositionVille> selectedVille = db.getPositionVille((int)p.X, (int)p.Y);
+            if(selectedVille.Count != 0) cityName = selectedVille[0].Name;
 
             if (cityName.Equals(""))
             {
