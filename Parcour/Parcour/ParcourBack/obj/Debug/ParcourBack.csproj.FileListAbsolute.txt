@@ -1,0 +1,6 @@
+D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\TP\Parcour\ParcourBack\bin\Debug\ParcourBack.exe.config
+D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\TP\Parcour\ParcourBack\bin\Debug\ParcourBack.exe
+D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\TP\Parcour\ParcourBack\bin\Debug\ParcourBack.pdb
+D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\TP\Parcour\ParcourBack\obj\Debug\ParcourBack.csprojAssemblyReference.cache
+D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\TP\Parcour\ParcourBack\obj\Debug\ParcourBack.exe
+D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\TP\Parcour\ParcourBack\obj\Debug\ParcourBack.pdb

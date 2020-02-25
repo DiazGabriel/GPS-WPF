@@ -1,0 +1,129 @@
+﻿<Window x:Class="ParcourFront.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ParcourFront"
+        mc:Ignorable="d"
+        Title="GPS" Height="450" Width="800" WindowStartupLocation="Manual">
+    <Grid Width="Auto" Height="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="165*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="131*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl Name="myTabControl" Margin="10" BorderBrush="Gainsboro" Grid.ColumnSpan="3">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Map" Width="Auto" Height="Auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="77*" />
+                        <ColumnDefinition Width="341*"/>
+                        <ColumnDefinition Width="348*" />
+                    </Grid.ColumnDefinitions>
+                    <Canvas Name="CanvasCarte" Margin="6,10,10,10" Grid.ColumnSpan="2" Width="Auto" Height="Auto">
+                        <Image Name="Carte" Source="/ressources/carte-france.png" Height="350" Width="400" MouseLeftButtonDown="getCoordinate" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    </Canvas>
+                    <ListView Name="villes" Grid.Column="2" ItemsSource="{Binding listeVillesAffichage}" MouseDoubleClick="dropVilleFromList" Width="Auto" Height="Auto">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Ville" Width="180" DisplayMemberBinding="{Binding Name}" />
+                                <GridViewColumn Header="Longitude" 
+                                    x:Name="Longitude" Width="80"
+                                                DisplayMemberBinding="{Binding posX}"
+                                    >
+                                    
+                                </GridViewColumn>
+                                <GridViewColumn Header="Latitude"
+                                    x:Name="Latitude" Width="80"
+                                                DisplayMemberBinding="{Binding posY}"
+                                    >
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="Settings" Width="Auto" Height="Auto">
+                <Grid>
+                    <StackPanel x:Name="Customer" Margin="20" Width="Auto" Height="Auto">
+                        <Label Name="NbrCheminQuestion" HorizontalAlignment="Left" VerticalAlignment="Top">Veuillez saisir le nombre de chemin à traiter en entrée</Label>
+                        <TextBox Name="NbrCheminAnswer" Margin="5,0,584,0" ForceCursor="True" TextChanged="PutIntOnly" />
+                    </StackPanel>
+                    <StackPanel x:Name="Associate" Margin="20,80,20,50" Width="Auto" Height="Auto">
+                        <Label Name="NbrXoverQuestion" HorizontalAlignment="Left" VerticalAlignment="Top">Veuillez saisir le nombre de chemin traité par le Xover</Label>
+                        <TextBox Name="NbrXoverAnswer" Margin="5,0,584,0" TextChanged="PutIntOnly"></TextBox>
+                        <Button Name="Run" Margin="5,10,0,0" Click="run" Width="72" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False">Run</Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Run" Width="Auto" Height="Auto">
+                <Grid Width="Auto" Height="Auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="385*"/>
+                        <ColumnDefinition Width="383*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView Name="sortie" Width="Auto" Height="Auto" Grid.ColumnSpan="2">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Sortie">
+                                <GridViewColumn Width="763">
+                                    <GridViewColumnHeader>Statistique d'exécution
+                                        <GridViewColumnHeader.ContextMenu>
+                                            <ContextMenu Name="Stat">
+                                                <MenuItem Header="Ascending" />
+                                                <MenuItem Header="Descending" />
+                                            </ContextMenu>
+                                        </GridViewColumnHeader.ContextMenu>
+                                    </GridViewColumnHeader>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView Name="resultats" Width="Auto" Height="Auto" Margin="0,234,0,0" Grid.ColumnSpan="2" >
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Chemin List">
+                                <GridViewColumn Width="763" DisplayMemberBinding="{Binding Name}">
+                                    <GridViewColumnHeader>Résultats
+                                        <GridViewColumnHeader.ContextMenu>
+                                            <ContextMenu Name="Resultat">
+                                                <MenuItem Header="Ascending" />
+                                                <MenuItem Header="Descending" />
+                                            </ContextMenu>
+                                        </GridViewColumnHeader.ContextMenu>
+                                    </GridViewColumnHeader>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Name="showResultsOn" Margin="0,340,0,0" Click="showResultOnMap" Width="72" HorizontalAlignment="Left" VerticalAlignment="Top">Map</Button>
+                    <Button Name="ResetRun" Margin="0,340,0,0" Click="Reset" Width="72" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1">Reset</Button>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
