@@ -38,7 +38,7 @@ namespace ParcourFront
         {
             InitializeComponent();
             DataBase db = new DataBase();
-            db.deletePositionVillesTable();
+            //db.deletePositionVillesTable();
             db.addPositionVilles();
             //db.printAllPositionVilles();
             this.StateChanged += new EventHandler(Window_StateChanged);
@@ -113,18 +113,26 @@ namespace ParcourFront
 
             // Puis on va chercher le nom de la ville dans la base de données en utilisant les coordonnées récupérées
             // Si elle n'existe pas dans la base on affiche une inputBox pour demandé à l'utilisateur de saisir le nom de la ville 
-            InputCityName getCityName = new InputCityName();
+            SelectCityName selectCityName = new SelectCityName();
             string cityName = "";
             DataBase db = new DataBase();
             List<PositionVille> selectedVille = db.getPositionVille(percentP.X, percentP.Y);
-            if(selectedVille.Count != 0) cityName = selectedVille[0].Name;
+            //if(selectedVille.Count != 0) cityName = selectedVille[0].Name;
 
-            if (cityName.Equals(""))
+            if (selectedVille.Count == 1)
             {
-                if (getCityName.ShowDialog() == true && getCityName.Answer != "")
+                cityName = selectedVille[0].Name;
+            }
+            else
+            {
+                string question = "Quelle ville ?";
+                foreach (PositionVille sv in selectedVille)
                 {
-                    cityName = getCityName.Answer;
+                    question += "\n" +sv.Name + "?";
                 }
+                selectCityName.Question = question;
+                selectCityName.ShowDialog();
+                cityName = selectCityName.Answer;
             }
 
             addVilleToList(cityName, percentP);
