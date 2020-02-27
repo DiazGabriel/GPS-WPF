@@ -38,7 +38,7 @@ namespace ParcourFront
         {
             InitializeComponent();
             DataBase db = new DataBase();
-            //db.deletePositionVillesTable();
+            db.deletePositionVillesTable();
             db.addPositionVilles();
             //db.printAllPositionVilles();
             this.StateChanged += new EventHandler(Window_StateChanged);
@@ -117,7 +117,7 @@ namespace ParcourFront
             string cityName = "";
             DataBase db = new DataBase();
             List<PositionVille> selectedVille = db.getPositionVille(percentP.X, percentP.Y);
-            cityName = selectedVille[0].Name;
+            if(selectedVille.Count != 0) cityName = selectedVille[0].Name;
 
             if (cityName.Equals(""))
             {
