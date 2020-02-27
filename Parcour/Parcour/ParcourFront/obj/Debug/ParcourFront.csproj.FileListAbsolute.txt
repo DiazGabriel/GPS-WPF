@@ -138,7 +138,6 @@ D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C shar
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\GalaSoft.MvvmLight.dll
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\GalaSoft.MvvmLight.Extras.dll
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\GalaSoft.MvvmLight.Platform.dll
-D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\Newtonsoft.Json.dll
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\ParcourBack.exe
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\SQLite-net.dll
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\SQLitePCLRaw.batteries_green.dll
@@ -155,7 +154,6 @@ D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C shar
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\GalaSoft.MvvmLight.Extras.xml
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\GalaSoft.MvvmLight.Platform.xml
-D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\Newtonsoft.Json.xml
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\SQLite-net.xml
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\System.Data.SQLite.xml
 D:\M2 MBDS\Serveurs d'applications et environnement de développement.NET C sharp\GPS-WPF\Parcour\Parcour\ParcourFront\bin\Debug\System.Data.SQLite.dll.config

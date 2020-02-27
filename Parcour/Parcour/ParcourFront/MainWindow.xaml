@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParcourFront"
         mc:Ignorable="d"
-        Title="GPS" Height="450" Width="800" WindowStartupLocation="Manual">
+        Title="GPS" Height="450" Width="775" WindowStartupLocation="Manual">
     <Grid Width="Auto" Height="Auto">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="165*"/>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="131*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <TabControl Name="myTabControl" Margin="10" BorderBrush="Gainsboro" Grid.ColumnSpan="3">
             <TabControl.Resources>
@@ -38,38 +37,33 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="Map" Width="Auto" Height="Auto">
+            <TabItem Header="Map">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="77*" />
-                        <ColumnDefinition Width="341*"/>
-                        <ColumnDefinition Width="348*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Canvas Name="CanvasCarte" Margin="6,10,10,10" Grid.ColumnSpan="2" Width="Auto" Height="Auto">
-                        <Image Name="Carte" Source="/ressources/carte-france.png" Height="350" Width="400" MouseLeftButtonDown="getCoordinate" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <Canvas Name="CanvasCarte" Grid.Column="0">
+                        <Image Name="Carte" Source="/ressources/carte-france.png" Grid.Row="3" MouseLeftButtonDown="getCoordinate" Width="{Binding ActualWidth, ElementName=CanvasCarte, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=CanvasCarte, Mode=OneWay}" Stretch="Fill"/>
                     </Canvas>
-                    <ListView Name="villes" Grid.Column="2" ItemsSource="{Binding listeVillesAffichage}" MouseDoubleClick="dropVilleFromList" Width="Auto" Height="Auto">
+                    <ListView Name="villes" Grid.Column="1" ItemsSource="{Binding listeVillesAffichage}" MouseDoubleClick="dropVilleFromList">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Ville" Width="180" DisplayMemberBinding="{Binding Name}" />
+                                <GridViewColumn Header="Ville" Width="130" DisplayMemberBinding="{Binding Name}" />
                                 <GridViewColumn Header="Longitude" 
                                     x:Name="Longitude" Width="80"
                                                 DisplayMemberBinding="{Binding posX}"
-                                    >
-                                    
-                                </GridViewColumn>
+                                    />
                                 <GridViewColumn Header="Latitude"
                                     x:Name="Latitude" Width="80"
                                                 DisplayMemberBinding="{Binding posY}"
-                                    >
-                                </GridViewColumn>
+                                    />
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    
                 </Grid>
             </TabItem>
-            <TabItem Header="Settings" Width="Auto" Height="Auto">
+            <TabItem Header="Settings">
                 <Grid>
                     <StackPanel x:Name="Customer" Margin="20" Width="Auto" Height="Auto">
                         <Label Name="NbrCheminQuestion" HorizontalAlignment="Left" VerticalAlignment="Top">Veuillez saisir le nombre de chemin à traiter en entrée</Label>
@@ -82,11 +76,10 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Run" Width="Auto" Height="Auto">
+            <TabItem Header="Run">
                 <Grid Width="Auto" Height="Auto">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="385*"/>
-                        <ColumnDefinition Width="383*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <ListView Name="sortie" Width="Auto" Height="Auto" Grid.ColumnSpan="2">
                         <ListView.View>

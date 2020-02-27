@@ -20,7 +20,7 @@ namespace ParcourFront
         public Parcour p = new Parcour();
         public Chemin ch = new Chemin();
         public PositionVille pv = new PositionVille();
-        
+
         // On créer une nouvelle liste de ville, on y stockera les points saisie
         public List<Ville> listeVilles = new List<Ville>();
         public List<Chemin> listeCheminAleatoire = new List<Chemin>();
@@ -33,27 +33,91 @@ namespace ParcourFront
         public bool IsXoverNotEmpty = false;
         public int nombreChemins;
         public int nombreTraitXOver;
+
         public MainWindow()
         {
             InitializeComponent();
+            DataBase db = new DataBase();
+            //db.deletePositionVillesTable();
+            db.addPositionVilles();
+            //db.printAllPositionVilles();
+            this.StateChanged += new EventHandler(Window_StateChanged);
             villes.ItemsSource = listeVillesAffichage;
             sortie.ItemsSource = sortieRun;
             resultats.ItemsSource = listeResultatAffichage;
+        }
+
+        void Window_StateChanged(object sender, EventArgs e)
+        {
+            bool pathExist = false;
+            double x, y;
+            if (CanvasCarte.Children.Count > listeVilles.Count + 1)
+            {
+                pathExist = true;
+            }
+            switch (this.WindowState)
+            {
+                case WindowState.Maximized:
+                    // x: 906, y: 751,84
+                    x = 906;
+                    y = 751.84;
+                    dropPathAndPoints();
+                    foreach (Ville v in listeVilles)
+                    {
+                        Point drowableP = new Point((v.posX / 100) * x, (v.posY / 100) * y);
+                        drowPoint(drowableP.X, drowableP.Y);
+                    }
+                    if (pathExist)
+                    {
+                        if (listeVilles.Count > 3)
+                        {
+                            drowPath(listeCheminAleatoire[0].chemin, x, y);
+                        }
+                        else
+                        {
+                            drowPath(listeVilles, x, y);
+                        }
+                    }
+                    break;
+                case WindowState.Normal:
+                    // x: 440,88, y: 363,44
+                    x = 440.88;
+                    y = 363.44;
+                    dropPathAndPoints();
+                    foreach (Ville v in listeVilles)
+                    {
+                        Point drowableP = new Point((v.posX / 100) * x, (v.posY / 100) * y);
+                        drowPoint(drowableP.X, drowableP.Y);
+                    }
+                    if (pathExist)
+                    {
+                        if (listeVilles.Count > 3)
+                        {
+                            drowPath(listeCheminAleatoire[0].chemin, x, y);
+                        }
+                        else
+                        {
+                            drowPath(listeVilles, x, y);
+                        }
+                    }
+                    break;
+            }
         }
 
         // On capture les clicks sur la carte
         public void getCoordinate(object sender, MouseButtonEventArgs e)
         {
             // On récupère les coordonnées (x,y) de la souris
-            Point p = Mouse.GetPosition(Carte);
+            Point exactP = Mouse.GetPosition(Carte);
+            Point percentP = new Point((exactP.X / CanvasCarte.ActualWidth) * 100, (exactP.Y / CanvasCarte.ActualHeight) * 100);
 
             // Puis on va chercher le nom de la ville dans la base de données en utilisant les coordonnées récupérées
             // Si elle n'existe pas dans la base on affiche une inputBox pour demandé à l'utilisateur de saisir le nom de la ville 
             InputCityName getCityName = new InputCityName();
             string cityName = "";
             DataBase db = new DataBase();
-            List<PositionVille> selectedVille = db.getPositionVille((int)p.X, (int)p.Y);
-            if(selectedVille.Count != 0) cityName = selectedVille[0].Name;
+            List<PositionVille> selectedVille = db.getPositionVille(percentP.X, percentP.Y);
+            cityName = selectedVille[0].Name;
 
             if (cityName.Equals(""))
             {
@@ -63,21 +127,23 @@ namespace ParcourFront
                 }
             }
 
-            addVilleToList(cityName, p);
+            addVilleToList(cityName, percentP);
 
             EnableRunButton();
         }
 
-        public void addVilleToList(string cityName, Point p)
+        public void addVilleToList(string cityName, Point percentP)
         {
-            Ville ville = new Ville(cityName, p.X, p.Y);
+            Ville ville = new Ville(cityName, percentP.X, percentP.Y);
             listeVillesAffichage.Add(ville);
             listeVilles.Add(ville);
+
             // On ajouter un point à l'endroit du click
-            drowPoint(p);
+            Point drowableP = new Point((percentP.X / 100) * CanvasCarte.ActualWidth, (percentP.Y / 100) * CanvasCarte.ActualHeight);
+            drowPoint(drowableP.X, drowableP.Y);
         }
 
-        public void drowPoint(Point p)
+        public void drowPoint(double x, double y)
         {
             Ellipse Circle = new Ellipse();
             SolidColorBrush mySolidColorBrush = new SolidColorBrush();
@@ -85,10 +151,10 @@ namespace ParcourFront
             Circle.Fill = mySolidColorBrush;
             Circle.StrokeThickness = 2;
             Circle.Stroke = Brushes.Red;
-            Circle.Width = 5;
-            Circle.Height = 5;
-            Canvas.SetTop(Circle, p.Y - 2.5);
-            Canvas.SetLeft(Circle, p.X - 2.5);
+            Circle.Width = 8;
+            Circle.Height = 8;
+            Canvas.SetTop(Circle, y - 4);
+            Canvas.SetLeft(Circle, x - 4);
             CanvasCarte.Children.Add(Circle);
         }
 
@@ -147,7 +213,8 @@ namespace ParcourFront
 
         public void run(object sender, RoutedEventArgs e)
         {
-
+            double aw = CanvasCarte.ActualWidth;
+            double ah = CanvasCarte.ActualHeight;
             DateTime DateBegin = DateTime.Now;
             int nombreBoucle = 0;
             int nombreCheminEvaluer = 0;
@@ -210,7 +277,7 @@ namespace ParcourFront
                 chemRes.Name += "\t=> Score: " + listeCheminAleatoire[0].Score;
                 listeResultatAffichage.Add(chemRes);
                 // Une fois l'éxecution terminé, on relie les points par le chemin optimal
-                drawPath(listeCheminAleatoire[0].chemin);
+                drowPath(listeCheminAleatoire[0].chemin, aw, ah);
             }
             else
             {
@@ -225,7 +292,7 @@ namespace ParcourFront
                 chemRes.Name += "\t=> Score: " + chem[0].Score;
                 listeResultatAffichage.Add(chemRes);
                 // Une fois l'éxecution terminé, on relie les points par le chemin optimal
-                drawPath(listeVilles);
+                drowPath(listeVilles, aw, ah);
             }
 
             DateTime DateEnd = DateTime.Now;
@@ -255,7 +322,7 @@ namespace ParcourFront
             }
         }
 
-        public void drawPath(List<Ville> v)
+        public void drowPath(List<Ville> v, double aw, double ah)
         {
             for (int i = 0; i < (v.Count - 1); i++)
             {
@@ -263,12 +330,12 @@ namespace ParcourFront
 
                 chemin.Stroke = Brushes.Red;
 
-                chemin.X1 = v[i].posX;
-                chemin.X2 = v[i + 1].posX;
-                chemin.Y1 = v[i].posY;
-                chemin.Y2 = v[i + 1].posY;
+                chemin.X1 = (v[i].posX / 100) * aw;
+                chemin.X2 = (v[i + 1].posX / 100) * aw;
+                chemin.Y1 = (v[i].posY / 100) * ah;
+                chemin.Y2 = (v[i + 1].posY / 100) * ah;
 
-                chemin.StrokeThickness = 1;
+                chemin.StrokeThickness = 2;
 
                 CanvasCarte.Children.Add(chemin);
             }

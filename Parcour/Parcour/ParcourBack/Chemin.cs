@@ -11,7 +11,6 @@ namespace ParcourBack
         public List<Ville> chemin = new List<Ville>();
 
         public Chemin() { }
-
         public Chemin(List<Ville> chemin, int score)
         {
             this.chemin = chemin;

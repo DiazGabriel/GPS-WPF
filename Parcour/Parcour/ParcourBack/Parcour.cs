@@ -45,18 +45,6 @@ namespace ParcourBack
             }
         }
 
-        public int Factorial(int number)
-        {
-            if (number < 0) throw new ArgumentOutOfRangeException("number", "number should not be negative.");
-            int result = 1;
-            for (int i = 2; i <= number; i++)
-            {
-                result *= i;
-            }
-
-            return result;
-        }
-
         public int moyenne(double[] moy, List<Chemin> listeCheminAleatoire, int stop)
         {
             if (moy.Equals(0))
@@ -261,29 +249,6 @@ namespace ParcourBack
                 mutation2 = XOverListChemin[i].chemin[index2];
                 XOverListChemin[i].chemin[index1] = mutation2;
                 XOverListChemin[i].chemin[index2] = mutation1;
-            }
-            return XOverListChemin;
-        }
-
-        public List<Chemin> dropDoubles(List<Chemin> XOverListChemin)
-        {
-            for (int i = 0; i < XOverListChemin.Count - 1; i++)
-            {
-                var Query =
-                    from chemin in XOverListChemin
-                    orderby chemin.Score ascending
-                    select chemin;
-                XOverListChemin = Query.Take(XOverListChemin.Count).ToList();
-
-                int max = XOverListChemin.Count;
-                for (int j = 1; j < max; j++)
-                {
-                    if (XOverListChemin[i].Equals(XOverListChemin[j]))
-                    {
-                        XOverListChemin.RemoveAt(j);
-                        max--;
-                    }
-                }
             }
             return XOverListChemin;
         }
