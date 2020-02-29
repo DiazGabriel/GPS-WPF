@@ -239,9 +239,16 @@ namespace ParcourBack
                 int index2 = iterable.Next(1, listeVilles.Count - 2);
 
                 // On s'assure qu'ils soient bien distinct
+                int compteur = 0;
                 while (index1 == index2)
                 {
+                    // Dans le cas ou nous avons quattre chemin l'algo bloque ici, on le force 
+                    compteur++;
                     index2 = iterable.Next(1, listeVilles.Count - 2);
+                    if (compteur == 1000)
+                    {
+                        index2++;
+                    }
                 }
 
                 // On sauvegarde les valeurs avant de les attribuer

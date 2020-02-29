@@ -46,7 +46,7 @@
                     <Canvas Name="CanvasCarte" Grid.Column="0">
                         <Image Name="Carte" Source="/ressources/carte-france.png" Grid.Row="3" MouseLeftButtonDown="getCoordinate" Width="{Binding ActualWidth, ElementName=CanvasCarte, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=CanvasCarte, Mode=OneWay}" Stretch="Fill"/>
                     </Canvas>
-                    <ListView Name="villes" Grid.Column="1" ItemsSource="{Binding listeVillesAffichage}" MouseDoubleClick="dropVilleFromList">
+                    <ListView Name="villes" Grid.Column="1" ItemsSource="{Binding listeVillesAffichage}" MouseDoubleClick="dropVilleFromList" SelectionChanged="villes_SelectionChanged">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Ville" Width="130" DisplayMemberBinding="{Binding Name}" />

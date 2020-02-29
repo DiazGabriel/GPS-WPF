@@ -374,5 +374,10 @@ namespace ParcourFront
             NbrXoverAnswer.Text = "";
             dropPathAndPoints();
         }
+
+        private void villes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
