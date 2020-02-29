@@ -66,11 +66,11 @@
             <TabItem Header="Settings">
                 <Grid>
                     <StackPanel x:Name="Customer" Margin="20" Width="Auto" Height="Auto">
-                        <Label Name="NbrCheminQuestion" HorizontalAlignment="Left" VerticalAlignment="Top">Veuillez saisir le nombre de chemin à traiter en entrée</Label>
+                        <Label Name="NbrCheminQuestion" HorizontalAlignment="Left" VerticalAlignment="Top">Veuillez saisir le nombre de chemins à traiter en entrée</Label>
                         <TextBox Name="NbrCheminAnswer" Margin="5,0,584,0" ForceCursor="True" TextChanged="PutIntOnly" />
                     </StackPanel>
                     <StackPanel x:Name="Associate" Margin="20,80,20,50" Width="Auto" Height="Auto">
-                        <Label Name="NbrXoverQuestion" HorizontalAlignment="Left" VerticalAlignment="Top">Veuillez saisir le nombre de chemin traité par le Xover</Label>
+                        <Label Name="NbrXoverQuestion" HorizontalAlignment="Left" VerticalAlignment="Top">Veuillez saisir le nombre de chemins traités par le Xover</Label>
                         <TextBox Name="NbrXoverAnswer" Margin="5,0,584,0" TextChanged="PutIntOnly"></TextBox>
                         <Button Name="Run" Margin="5,10,0,0" Click="run" Width="72" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False">Run</Button>
                     </StackPanel>
@@ -85,7 +85,7 @@
                         <ListView.View>
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Sortie">
                                 <GridViewColumn Width="763">
-                                    <GridViewColumnHeader>Statistique d'exécution
+                                    <GridViewColumnHeader>Statistiques d'exécution
                                         <GridViewColumnHeader.ContextMenu>
                                             <ContextMenu Name="Stat">
                                                 <MenuItem Header="Ascending" />

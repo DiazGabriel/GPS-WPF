@@ -305,15 +305,15 @@ namespace ParcourFront
 
             DateTime DateEnd = DateTime.Now;
 
-            // Une fois le traitement terminé, on affiche les stats recueillis
-            sortieRun.Add("Date de début d'éxecution : " + DateBegin.ToString());
-            sortieRun.Add("Date de fin d'éxecution : " + DateEnd.ToString());
+            // Une fois le traitement terminé, on affiche les stats recueillies
+            sortieRun.Add("Date de début d'exécution : " + DateBegin.ToString());
+            sortieRun.Add("Date de fin d'exécution : " + DateEnd.ToString());
             sortieRun.Add("");
             sortieRun.Add("Récap des paramètres d'initalisation");
-            sortieRun.Add("Nombre de chemin initiaux (tirage aléatoire) : " + nombreChemins);
-            sortieRun.Add("Nombre de chemin générés par le Xover : " + nombreTraitXOver);
+            sortieRun.Add("Nombre de chemins initiaux (tirage aléatoire) : " + nombreChemins);
+            sortieRun.Add("Nombre de chemins générés par le Xover : " + nombreTraitXOver);
             sortieRun.Add("");
-            sortieRun.Add("Nombre de tour de boucle effectué par l'algorithme : " + nombreBoucle.ToString());
+            sortieRun.Add("Nombre de tours de boucle effectuées par l'algorithme : " + nombreBoucle.ToString());
             sortieRun.Add("Nombre de chemins evalués par l'algorithme : " + nombreCheminEvaluer.ToString());
         }
 
