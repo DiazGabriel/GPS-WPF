@@ -1,4 +1,4 @@
-# GPS - * C# * et * WPF *
+# GPS - C# et WPF
 
 
 ## Développeurs : 
@@ -9,7 +9,7 @@
 
 ## Doc d'utilisation 
 
-# Onglet * Map *
+# Onglet Map
 
 L'onglet Map contient une carte de la France et une ListView contenant 3 champs : Ville, Longitude, Latitude
 
@@ -21,7 +21,7 @@ L'onglet Map contient une carte de la France et une ListView contenant 3 champs 
 - Un double clic sur une ligne de la ListView entraîne la suppression de la ville.
 - Nous sommes partis du principe qu'un GPS "classique" auquel l'utilisateur demande d'aller à Paris en partant de Nice ne donnera pas la route à suivre pour aller de Paris jusqu'à Nice mais de Nice jusqu'à Paris. Notre algorithme applique le même principe : la première ville enregistrée est celle de départ et la dernière celle d'arrivée. 
 
-# Onglet * Setting *
+# Onglet Setting
 
 L'onglet Setting contient les paramètres d'entrée de l'application et le bouton "Run" permettant de lancer l'algorithme.
 
@@ -33,7 +33,7 @@ L'onglet Setting contient les paramètres d'entrée de l'application et le bouto
 	- Lorsque l'utilisateur clique dessus, l'algorithme se lance.
 	- Lorsque l'algorithme est termniné, le système renvoie automatiquement l'utilisateur dans l'onglet "Run"
 
-# Onglet * Run * 
+# Onglet Run
 
 L'onglet Run contient 2 ListView et 2 boutons :
 
