@@ -33,7 +33,6 @@ namespace ParcourFront
         public bool IsXoverNotEmpty = false;
         public int nombreChemins;
         public int nombreTraitXOver;
-        public bool notFirstRun = false;
 
         public MainWindow()
         {
@@ -42,66 +41,38 @@ namespace ParcourFront
             //db.deletePositionVillesTable();
             db.addPositionVilles();
             //db.printAllPositionVilles();
-            this.StateChanged += new EventHandler(Window_StateChanged);
+            this.SizeChanged += new SizeChangedEventHandler(Window_Resize);
             villes.ItemsSource = listeVillesAffichage;
             sortie.ItemsSource = sortieRun;
             resultats.ItemsSource = listeResultatAffichage;
         }
 
-        void Window_StateChanged(object sender, EventArgs e)
+        void Window_Resize(object sender, SizeChangedEventArgs e)
         {
             bool pathExist = false;
-            double x, y;
+            double x = CanvasCarte.ActualWidth;
+            double y = CanvasCarte.ActualHeight;
             if (CanvasCarte.Children.Count > listeVilles.Count + 1)
             {
                 pathExist = true;
             }
-            switch (this.WindowState)
+
+            dropPathAndPoints();
+            foreach (Ville v in listeVilles)
             {
-                case WindowState.Maximized:
-                    // x: 906, y: 751,84
-                    x = 906;
-                    y = 751.84;
-                    dropPathAndPoints();
-                    foreach (Ville v in listeVilles)
-                    {
-                        Point drowableP = new Point((v.posX / 100) * x, (v.posY / 100) * y);
-                        drowPoint(drowableP.X, drowableP.Y);
-                    }
-                    if (pathExist)
-                    {
-                        if (listeVilles.Count > 3)
-                        {
-                            drowPath(listeCheminAleatoire[0].chemin, x, y);
-                        }
-                        else
-                        {
-                            drowPath(listeVilles, x, y);
-                        }
-                    }
-                    break;
-                case WindowState.Normal:
-                    // x: 440,88, y: 363,44
-                    x = 440.88;
-                    y = 363.44;
-                    dropPathAndPoints();
-                    foreach (Ville v in listeVilles)
-                    {
-                        Point drowableP = new Point((v.posX / 100) * x, (v.posY / 100) * y);
-                        drowPoint(drowableP.X, drowableP.Y);
-                    }
-                    if (pathExist)
-                    {
-                        if (listeVilles.Count > 3)
-                        {
-                            drowPath(listeCheminAleatoire[0].chemin, x, y);
-                        }
-                        else
-                        {
-                            drowPath(listeVilles, x, y);
-                        }
-                    }
-                    break;
+                Point drowableP = new Point((v.posX / 100) * x, (v.posY / 100) * y);
+                drowPoint(drowableP.X, drowableP.Y);
+            }
+            if (pathExist)
+            {
+                if (listeVilles.Count > 3)
+                {
+                    drowPath(listeCheminAleatoire[0].chemin, x, y);
+                }
+                else
+                {
+                    drowPath(listeVilles, x, y);
+                }
             }
         }
 
@@ -137,7 +108,6 @@ namespace ParcourFront
             }
 
             addVilleToList(cityName, percentP);
-
             EnableRunButton();
         }
 
@@ -217,10 +187,7 @@ namespace ParcourFront
                     NbrXoverAnswer.Text = "";
                 }
             }
-
-
             EnableRunButton();
-
         }
 
         public void run(object sender, RoutedEventArgs e)
@@ -391,11 +358,6 @@ namespace ParcourFront
             NbrCheminAnswer.Text = "";
             NbrXoverAnswer.Text = "";
             dropPathAndPoints();
-        }
-
-        private void villes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }
