@@ -57,8 +57,9 @@ L'algorithme reprend le concept qui nous a été présenté lors du cours avec 4
 	- Si la moyenne est égale à celle du tour de boucle précédent (avec une marge à + ou - 0.01), un compteur est incrémenté de 1. Sinon le compteur est remis à 0.
 	- Lorsque le compteur est égal au nombre de villes sélectionnées multiplié par le nombre de chemins tirés en entrée d'algo multiplié par le nombre de chemins générés par le Xover (nombre de villes X param 1 X param 2), alors le système stoppe l'exécution. Le chemin retenu sera le meilleur parmi les meilleurs.
 
-# Faiblesse de l'application 
+# Points forts de l'application 
 
-- L'application est totalement responsive. Cependant, lorsque l'utilisateur redimentionne l'écran manuellement (en positionnant sa souris sur le bord de la fenêtre), les objets dessinés sur la carte (points et chemin optimal) perdent leurs positions initiales. 
-	- Ce problème est résolu lors d'un double clic sur l'entête de la fenêtre. Le système recalcule la position en pixel des objets en fonction du pourcentage de variation entre la dimention initale de la fenêtre et sa dimention en plein écran.
+- L'application est totalement responsive.
+- Les Noms de villes et leurs coordonnées sont répertoriés dans la base de données.
+	- Lors du lancement une vérification s'éffectue, si la table n'existe pas dans la base de données celle-ci est créée et remplie avec les données du fichier "./ressources/coords.txt".
 
