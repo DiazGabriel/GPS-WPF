@@ -170,9 +170,12 @@ namespace ParcourFront
         {
             //villes.Items.RemoveAt(villes.Items.IndexOf(villes.SelectedItem));
             Ville selectedVille = (Ville)this.villes.SelectedItem;
-            listeVilles.RemoveAt(villes.SelectedIndex);
-            CanvasCarte.Children.RemoveAt(villes.SelectedIndex + 1);
-            listeVillesAffichage.RemoveAt(villes.SelectedIndex);
+            if(selectedVille != null)
+            {
+                listeVilles.RemoveAt(villes.SelectedIndex);
+                CanvasCarte.Children.RemoveAt(villes.SelectedIndex + 1);
+                listeVillesAffichage.RemoveAt(villes.SelectedIndex);
+            }
         }
 
         // Gestion des inputs de l'onglet setting : on force le user à saisir des nombre entier
