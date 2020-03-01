@@ -59,7 +59,6 @@ L'algorithme reprend le concept qui nous a été présenté lors du cours avec 4
 
 # Faiblesse de l'application 
 
-- Si l'utilisateur relance un traitement sans avoir appuyé sur le bouton Reset de l'onglet Run, le système ne fait pas de nettoyage automatique. Les résultats du traitement en cours viennent s'ajouter à ceux de l'éxecution précédente.
 - L'application est totalement responsive. Cependant, lorsque l'utilisateur redimentionne l'écran manuellement (en positionnant sa souris sur le bord de la fenêtre), les objets dessinés sur la carte (points et chemin optimal) perdent leurs positions initiales. 
 	- Ce problème est résolu lors d'un double clic sur l'entête de la fenêtre. Le système recalcule la position en pixel des objets en fonction du pourcentage de variation entre la dimention initale de la fenêtre et sa dimention en plein écran.
 
