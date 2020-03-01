@@ -50,7 +50,7 @@ namespace ParcourBack
             double distanceY;
             for (int i = 0; i < XOverListChemin.Count; i++)
             {
-                for (int j = 0; j < listeVilles.Count - 1; j++)
+                for (int j = 0; j < Convert.ToInt32(XOverListChemin[i].chemin.Count)-1; j++)
                 {
                     // On commance par calculer la distance entre les points
                     distanceX = Math.Abs(XOverListChemin[i].chemin[j].posX - XOverListChemin[i].chemin[j + 1].posX);

@@ -229,14 +229,13 @@ namespace ParcourBack
         {
             // Mutation : On va itérer sur la liste de chemin en sorti du Xover
             // Pour chaque chemin, on défini deux villes aléatoirement puis on les switch
-            List<Chemin> listeCheminAleatoire = new List<Chemin>();
             Ville mutation1;
             Ville mutation2;
             for (int i = 0; i < XOverListChemin.Count; i++)
             {
                 // On tire 2 index random
-                int index1 = iterable.Next(1, listeVilles.Count - 2);
-                int index2 = iterable.Next(1, listeVilles.Count - 2);
+                int index1 = iterable.Next(1, Convert.ToInt32(XOverListChemin[i].chemin.Count) - 1);
+                int index2 = iterable.Next(1, Convert.ToInt32(XOverListChemin[i].chemin.Count) - 1);
 
                 // On s'assure qu'ils soient bien distinct
                 int compteur = 0;
@@ -244,11 +243,23 @@ namespace ParcourBack
                 {
                     // Dans le cas ou nous avons quattre chemin l'algo bloque ici, on le force 
                     compteur++;
-                    index2 = iterable.Next(1, listeVilles.Count - 2);
+                    index2 = iterable.Next(1, Convert.ToInt32(XOverListChemin[i].chemin.Count) - 1);
                     if (compteur == 1000)
                     {
                         index2++;
+
+                        // Pour être sur à 100% que de le forcer ne sort pas une erreur hors limite
+                        if (index2 == Convert.ToInt32(XOverListChemin[i].chemin.Count) - 1)
+                        {
+                            index2 = index2 - 2;
+                        }
                     }
+                }
+
+                //Quelques erreur outofRange .. On vérifie pour être certain
+                if (index1 == Convert.ToInt32(XOverListChemin[i].chemin.Count)-1)
+                {
+                    index1--;
                 }
 
                 // On sauvegarde les valeurs avant de les attribuer
