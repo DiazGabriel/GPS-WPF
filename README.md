@@ -17,9 +17,9 @@ L'onglet Map contient une carte de la France et une ListView contenant 3 champs 
 	- Si le clic se situe dans l'intervalle de coordonnées définies pour une ville donnée, le système récupère le nom de la ville automatiquement. 
 	- Si le clic donne lieu à un conflit entre les coordonnées de plusieurs villes, une boite de dialogue apparaît permettant à l'utilisateur de choisir entre les villes résultantes de la requête en base. 
 	- Si le clic ne correspond à aucune coordonnées répertorié en base, une boite de dialogue apparaît demandant à l'utilisateur de saisir le nom de la ville.
-- Après chaque clic, un point rouge apparaît sur la carte pour notifier la saisie géographique de la ville est la ListView est enrichie d'une ligne supplémentaire.
+- Après chaque clic, un point rouge apparaît sur la carte pour notifier la saisie géographique de la ville et la ListView est enrichie d'une ligne supplémentaire.
 - Un double clic sur une ligne de la ListView entraîne la suppression de la ville.
-- Nous sommes partis du principe qu'un GPS "classique" auquel l'utilisateur demande d'aller à Paris en partant de Nice ne donnera pas la route à suivre pour aller de Paris jusqu'à Nice mais de Nice jusqu'à Paris. Notre algorithme applique le même principe : la première ville enregistrée est celle de départ et la dernière celle d'arrivée. 
+- Nous sommes partis du principe qu'un GPS "classique" auquel l'utilisateur demande d'aller à Paris en partant de Nice ne donnera pas la route à suivre pour aller de Paris jusqu'à Nice mais de Nice jusqu'à Paris. Notre algorithme applique le même principe : la première ville contenu dans la ListView est celle de départ et la dernière celle d'arrivée. 
 
 # Onglet Setting
 
@@ -60,6 +60,6 @@ L'algorithme reprend le concept qui nous a été présenté lors du cours avec 4
 # Faiblesse de l'application 
 
 - Si l'utilisateur relance un traitement sans avoir appuyé sur le bouton Reset de l'onglet Run, le système ne fait pas de nettoyage automatique. Les résultats du traitement en cours viennent s'ajouter à ceux de l'éxecution précédente.
-- L'application est totalement responsive. Cependant, lorsque l'utilisateur redimentionne l'écran manuellement (en positionnant sa souris sur le bord de la fenêtre), les objets dessinés sur la carte (points et chemin final) perdent leurs positions initiales. 
+- L'application est totalement responsive. Cependant, lorsque l'utilisateur redimentionne l'écran manuellement (en positionnant sa souris sur le bord de la fenêtre), les objets dessinés sur la carte (points et chemin optimal) perdent leurs positions initiales. 
 	- Ce problème est résolu lors d'un double clic sur l'entête de la fenêtre. Le système recalcule la position en pixel des objets en fonction du pourcentage de variation entre la dimention initale de la fenêtre et sa dimention en plein écran.
 
