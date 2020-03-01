@@ -33,6 +33,7 @@ namespace ParcourFront
         public bool IsXoverNotEmpty = false;
         public int nombreChemins;
         public int nombreTraitXOver;
+        public bool notFirstRun = false;
 
         public MainWindow()
         {
@@ -128,7 +129,7 @@ namespace ParcourFront
                 string question = "Quelle ville ?";
                 foreach (PositionVille sv in selectedVille)
                 {
-                    question += "\n" +sv.Name + "?";
+                    question += "\n" + sv.Name + "?";
                 }
                 selectCityName.Question = question;
                 selectCityName.ShowDialog();
@@ -170,7 +171,7 @@ namespace ParcourFront
         {
             //villes.Items.RemoveAt(villes.Items.IndexOf(villes.SelectedItem));
             Ville selectedVille = (Ville)this.villes.SelectedItem;
-            if(selectedVille != null)
+            if (selectedVille != null)
             {
                 listeVilles.RemoveAt(villes.SelectedIndex);
                 CanvasCarte.Children.RemoveAt(villes.SelectedIndex + 1);
@@ -226,6 +227,7 @@ namespace ParcourFront
         {
             double aw = CanvasCarte.ActualWidth;
             double ah = CanvasCarte.ActualHeight;
+            clean(aw, ah);
             DateTime DateBegin = DateTime.Now;
             int nombreBoucle = 0;
             int nombreCheminEvaluer = 0;
@@ -318,6 +320,19 @@ namespace ParcourFront
             sortieRun.Add("");
             sortieRun.Add("Nombre de tours de boucle effectuées par l'algorithme : " + nombreBoucle.ToString());
             sortieRun.Add("Nombre de chemins evalués par l'algorithme : " + nombreCheminEvaluer.ToString());
+        }
+
+        private void clean(double aw, double ah)
+        {
+            listeCheminAleatoire.Clear();
+            sortieRun.Clear();
+            listeCheminsAffichage.Clear();
+            listeResultatAffichage.Clear();
+            dropPathAndPoints();
+            foreach (Ville v in listeVilles)
+            {
+                drowPoint((v.posX / 100) * aw, (v.posY / 100) * ah);
+            }
         }
 
         public void EnableRunButton()
